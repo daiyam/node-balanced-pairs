@@ -1,0 +1,18 @@
+text: |
+  Console.WriteLine("Hello ""world""")
+options:
+- ['(', ')']
+- ['"', '"', '""']
+tests:
+- position:
+    line: 1
+    column: 18
+  result:
+    line: 1
+    column: 36
+- position:
+    line: 1
+    column: 19
+  result:
+    line: 1
+    column: 35

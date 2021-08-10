@@ -1,0 +1,62 @@
+{
+	"name": "@daiyam/balanced-pairs",
+	"description": "Find your brackets and quotes in pairs",
+	"version": "0.0.0",
+	"author": {
+		"name": "Baptiste Augrain",
+		"email": "daiyam@zokugun.org"
+	},
+	"license": "MIT",
+	"homepage": "https://github.com/daiyam/node-balanced-pairs",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/daiyam/node-balanced-pairs.git"
+	},
+	"bugs": {
+		"url": "https://github.com/daiyam/node-balanced-pairs/issues"
+	},
+	"main": "lib/index.js",
+	"types": "lib/index.d.ts",
+	"scripts": {
+		"commit": "cz",
+		"compile": "tsc -p ./",
+		"lint": "xo",
+		"prepare": "husky install;",
+		"prepublishOnly": "npm run compile",
+		"test": "mocha",
+		"test:watch": "mocha --watch",
+		"watch": "tsc -watch -p ./"
+	},
+	"dependencies": {},
+	"devDependencies": {
+		"@commitlint/cli": "^13.1.0",
+		"@commitlint/config-conventional": "^13.1.0",
+		"@types/chai": "^4.2.17",
+		"@types/mocha": "^8.2.2",
+		"@types/node": "^14.16.1",
+		"chai": "^4.3.4",
+		"commitizen": "^4.2.4",
+		"fixpack": "^4.0.0",
+		"globby": "^11.0.4",
+		"husky": "^7.0.1",
+		"lint-staged": "^11.1.1",
+		"mocha": "^8.3.2",
+		"ts-node": "^10.1.0",
+		"typescript": "^4.2.4",
+		"xo": "^0.43.0",
+		"yaml": "^1.10.2"
+	},
+	"keywords": [
+		"balanced",
+		"pairs",
+		"pair",
+		"brackets",
+		"bracket",
+		"parentheses",
+		"parenthese",
+		"quotes",
+		"quote",
+		"match",
+		"balance"
+	]
+}
