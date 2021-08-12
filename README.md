@@ -7,7 +7,7 @@
 [![License](https://img.shields.io/badge/donate-liberapay-green)](https://liberapay.com/daiyam/donate)
 [![License](https://img.shields.io/badge/donate-paypal-green)](https://paypal.me/daiyam99)
 
-
+Find your brackets and quotes in pairs
 
 Getting Started
 ---------------
@@ -17,11 +17,48 @@ With [node](http://nodejs.org) previously installed:
 	npm install @daiyam/balanced-pairs
 
 ```typescript
-import {  } from '@daiyam/balanced-pairs'
+import { matchPair } from '@daiyam/balanced-pairs';
 
+const JSON_WITH_COMMENTS_CONFIG = {
+	pairs: {
+		blocks: [
+			['{', '}'],
+			['[', ']'],
+		],
+		strings: [
+			['"', '"', '\\"', '\\\\'],
+			['\'', '\'', '\'', '\\\\'],
+			['`', '`', '`', '\\\\'],
+		],
+	},
+	comments: {
+		lines: [
+			'//',
+		],
+		blocks: [
+			['/*', '*/'],
+		],
+	},
+};
+
+/*
+ * @param {string} text - The JSON string
+ * @param {number} index - The index of the first character of the pair
+ * @return {number} The index of the last character of the pair
+*/
+function matchPairPerIndex(text: string, index: number): number {
+    return matchPair(text, index, JSON_WITH_COMMENTS_CONFIG);
+}
+
+/*
+ * @param {string | string[]} text - The JSON string
+ * @param {line: number, column: number} position - The position of first character of the pair
+ * @return {line: number, column: number} The position of the last character of the pair
+*/
+function matchPairPerPosition(text: string | string[], position: {line: number, column: number}): {line: number, column: number} {
+    return matchPair(text, position, JSON_WITH_COMMENTS_CONFIG);
+}
 ```
-
-
 
 ## Donations
 
