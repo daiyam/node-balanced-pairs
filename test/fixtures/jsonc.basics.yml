@@ -1,0 +1,30 @@
+text: |
+  {
+    "position": {
+      "x": 0,
+      "y": 0,
+    }
+  }
+config:
+  pairs:
+    blocks:
+    - ['{', '}']
+    - ['[', ']']
+    strings:
+    - ['"', '"', '\"', '\\']
+    - ["'", "'", "'", '\\']
+    - ['`', '`', '`', '\\']
+  comments:
+    lines:
+    - '//'
+    blocks:
+    - ['/*', '*/']
+tests:
+- position:
+    line: 2
+    column: 15
+  result:
+    line: 5
+    column: 3
+# - position: 4
+#   result: 20

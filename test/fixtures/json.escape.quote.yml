@@ -2,10 +2,13 @@ text: |
   {
     "foo": "bar\"qux"
   }
-options:
-- ['{', '}']
-- ['[', ']']
-- ['"', '"', '\"', '\\']
+config:
+  pairs:
+    blocks:
+    - ['{', '}']
+    - ['[', ']']
+    strings:
+    - ['"', '"', '\"', '\\']
 tests:
 - position:
     line: 1

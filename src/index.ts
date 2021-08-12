@@ -1,34 +1,23 @@
-import { Pair } from './pair';
-import { Position } from './position';
-import { Scanner } from './scanner';
+import { Config, toWorkingConfig } from './config';
+import { Pair } from './types/pair';
+import { Position } from './types/position';
+import { IndexScanner } from './scanners';
+import { PositionScanner } from './scanners/position';
+import { LineTransformer } from './types/line-transformer';
 
-function match(position: Position, text: string, options: string[][]): Position | null {
-	const scanner = new Scanner(text, position);
+function matchPair(position: number, text: string, config: Config): number | null;
+function matchPair(position: Position, text: string | string[], config: Config, transform?: LineTransformer): Position | null;
+function matchPair(position: number | Position, text: string | string[], config: Config, transform?: LineTransformer): number | Position | null {
+	const useIndex = typeof position === 'number';
+	const scanner = useIndex ? new IndexScanner(position as number, Array.isArray(text) ? text.join('\n') : text) : new PositionScanner(position as Position, text, transform);
 
 	if(scanner.isEOF()) {
 		return null;
 	}
 
-	const pairs: Record<string, Pair> = {};
-	for(const strings of options) {
-		const escape: Record<string, string[]> = {};
+	const cfg = toWorkingConfig(config);
 
-		for(const string of strings.slice(2)) {
-			if(escape[string[0]]) {
-				escape[string[0]].push(string.slice(1));
-			}
-			else {
-				escape[string[0]] = [string.slice(1)];
-			}
-		}
-
-		pairs[strings[0]] = {
-			close: strings[1],
-			escape,
-		};
-	}
-
-	let pair = scanner.matchOpen(pairs);
+	let pair = scanner.matchOpen(cfg.pairs);
 	if(!pair) {
 		return null;
 	}
@@ -39,18 +28,31 @@ function match(position: Position, text: string, options: string[][]): Position 
 	let newPair: Pair | null;
 
 	while(!scanner.isEOF()) {
+		if(pair.isBlock) {
+			scanner.skipComments(cfg.comments);
+
+			if(scanner.isEOF()) {
+				return null;
+			}
+		}
+
 		if(scanner.skipEscape(pair)) {
 			continue;
 		}
 		else if(scanner.matchClose(pair)) {
 			if(stack.length === 0) {
-				return scanner.position();
+				if(useIndex) {
+					return (scanner as IndexScanner).index();
+				}
+				else {
+					return (scanner as PositionScanner).position();
+				}
 			}
 			else {
 				pair = stack.pop()!;
 			}
 		}
-		else if((newPair = scanner.matchOpen(pairs))) {
+		else if((newPair = scanner.matchOpen(cfg.pairs))) {
 			stack.push(pair);
 
 			pair = newPair;
@@ -63,6 +65,7 @@ function match(position: Position, text: string, options: string[][]): Position 
 }
 
 export {
+	Config,
 	Position,
-	match,
+	matchPair,
 };

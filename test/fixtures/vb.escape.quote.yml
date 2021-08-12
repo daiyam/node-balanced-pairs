@@ -1,8 +1,11 @@
 text: |
   Console.WriteLine("Hello ""world""")
-options:
-- ['(', ')']
-- ['"', '"', '""']
+config:
+  pairs:
+    blocks:
+    - ['(', ')']
+    strings:
+    - ['"', '"', '""']
 tests:
 - position:
     line: 1
