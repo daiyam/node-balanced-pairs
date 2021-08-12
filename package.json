@@ -23,6 +23,7 @@
 		"lint": "xo",
 		"prepare": "husky install;",
 		"prepublishOnly": "npm run compile",
+		"release": "release-it",
 		"test": "mocha",
 		"test:watch": "mocha --watch",
 		"watch": "tsc -watch -p ./"
@@ -41,22 +42,23 @@
 		"husky": "^7.0.1",
 		"lint-staged": "^11.1.1",
 		"mocha": "^8.3.2",
+		"release-it": "^14.11.3",
 		"ts-node": "^10.1.0",
 		"typescript": "^4.2.4",
 		"xo": "^0.43.0",
 		"yaml": "^1.10.2"
 	},
 	"keywords": [
+		"balance",
 		"balanced",
-		"pairs",
-		"pair",
-		"brackets",
 		"bracket",
-		"parentheses",
-		"parenthese",
-		"quotes",
-		"quote",
+		"brackets",
 		"match",
-		"balance"
+		"pair",
+		"pairs",
+		"parenthese",
+		"parentheses",
+		"quote",
+		"quotes"
 	]
 }
