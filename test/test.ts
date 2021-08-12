@@ -12,7 +12,7 @@ describe('test', () => {
 
 		for(const [index, test] of data.tests.entries()) {
 			it(`${name} #${index}`, () => {
-				const result = matchPair(test.position, data.text, data.config);
+				const result = matchPair(data.text, test.position, data.config);
 
 				expect(result).to.eql(test.result);
 			});
